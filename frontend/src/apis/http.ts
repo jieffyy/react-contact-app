@@ -27,7 +27,8 @@ export async function httpGet<T>(
     .catch((e) => ({
       code: 200,
       status: 'ERR',
-      message: '123'
+      message: '123',
+      isError: false
     }))
   return res
 }
@@ -44,7 +45,8 @@ export async function httpPost<T>(
     .catch((e) => ({
       code: 200,
       status: 'ERR',
-      message: '123'
+      message: '123',
+      isError: false
     }))
   return res
 }
@@ -61,7 +63,8 @@ export async function httpPut<T>(
     .catch((e) => ({
       code: 200,
       status: 'ERR',
-      message: '123'
+      message: '123',
+      isError: false
     }))
   return res
 }
@@ -77,7 +80,8 @@ export async function httpDelete<T>(
     .catch((e) => ({
       code: 200,
       status: 'ERR',
-      message: '123'
+      message: '123',
+      isError: false
     }))
   return res
 }
