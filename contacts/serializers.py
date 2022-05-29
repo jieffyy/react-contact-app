@@ -1,22 +1,26 @@
+from asyncore import read
+from cgitb import lookup
 from django.contrib.auth.models import User, Group
 from contacts.models import Contact
 from rest_framework import serializers
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'groups']
+        fields = ['id', 'username', 'email', 'groups', 'contacts']
 
 
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
+class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
-        fields = ['url', 'name']
+        fields = ['id', 'name']
 
 
-class ContactSerializer(serializers.HyperlinkedModelSerializer):
+class ContactSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Contact
-        fields = ['url', 'contact_name', 'belongs_to',
+        fields = ['id', 'contact_name', 'user',
                   'contact_number', 'contact_email', 'created_at', 'updated_at']

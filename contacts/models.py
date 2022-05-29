@@ -5,7 +5,8 @@ from django.core.validators import validate_email
 
 class Contact(models.Model):
     contact_name = models.CharField(max_length=200)
-    belongs_to = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='contacts')
     contact_number = models.CharField(max_length=100)
     contact_email = models.CharField(
         max_length=400, validators=[validate_email])
