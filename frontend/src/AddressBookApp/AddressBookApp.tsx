@@ -64,12 +64,7 @@ export default function AddressBookApp() {
 
   return (
     <>
-      <ContactList
-        contacts={contacts}
-        modalSetter={setCreateContactModel}
-        contactSetter={setContacts}
-        token={token}
-      />
+      <ContactList contacts={contacts} token={token} />
       {createContactModal}
     </>
   )
