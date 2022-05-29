@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from rest_framework import permissions
-from contactapp.contacts.serializers import UserSerializer, GroupSerializer
+from contacts.serializers import ContactSerializer, UserSerializer, GroupSerializer
+from contacts.models import Contact
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -19,4 +20,13 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class ContactViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows contacts to be viewed or edited.
+    """
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
     permission_classes = [permissions.IsAuthenticated]
