@@ -75,7 +75,7 @@ export async function httpDelete<T>(
 ): Promise<Res<T>> {
   const config = _getHeaders(token)
   const res = axios
-    .put<T>(BASE_URL + url, config)
+    .delete<T>(BASE_URL + url, config)
     .then((res) => res.data)
     .catch((e) => ({
       code: 200,

@@ -34,9 +34,8 @@ export default function ContactList(props: Props) {
           />
         </Center>
         {contacts.map((contact) => (
-          <Box>
+          <Box key={`contact-${contact.id}`}>
             <ContactBox
-              key={`contact-${contact.id}`}
               token={props.token}
               contact={contact}
               onUpdate={(newContact: ContactModel) => {
