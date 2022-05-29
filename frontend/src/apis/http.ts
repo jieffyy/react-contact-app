@@ -42,14 +42,12 @@ export async function httpPost<T>(
   const res = axios
     .post<T>(BASE_URL + url, body, config)
     .then((res) => res.data)
-    .catch((e) => console.log(e))
     .catch((e) => ({
       code: 200,
       status: 'ERR',
       message: '123',
       isError: false
     }))
-  //@ts-ignore
   return res
 }
 

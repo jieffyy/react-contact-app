@@ -54,7 +54,6 @@ export default function LoginBox() {
         } else {
           setError(null)
           ctxSetUsername(username)
-          console.log(res)
           setToken(res.token)
         }
       })
