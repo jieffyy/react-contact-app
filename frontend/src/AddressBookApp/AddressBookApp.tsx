@@ -1,9 +1,9 @@
-import { Spinner, Stack, Text } from '@chakra-ui/react'
+import { Spinner, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { ContactModel, listContacts } from '../apis/contacts'
 import { isError } from '../apis/errors.type'
 import { useAuth } from '../contexts/AuthContext'
-import ContactBox from './ContactBox'
+import ContactList from './ContactList'
 import EmptyContactList from './EmptyContactList'
 
 export default function AddressBookApp() {
@@ -45,6 +45,10 @@ export default function AddressBookApp() {
     return <Spinner />
   }
 
+  if (error) {
+    return <Text>{error}</Text>
+  }
+
   if (contacts.length === 0) {
     return (
       <>
@@ -60,12 +64,12 @@ export default function AddressBookApp() {
 
   return (
     <>
-      <Stack>
-        {error && <Text>{error}</Text>}
-        {contacts.map((contact) => (
-          <ContactBox key={`contact-${contact.id}`} contact={contact} />
-        ))}
-      </Stack>
+      <ContactList
+        contacts={contacts}
+        modalSetter={setCreateContactModel}
+        contactSetter={setContacts}
+        token={token}
+      />
       {createContactModal}
     </>
   )

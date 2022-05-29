@@ -1,7 +1,7 @@
-import { Button, Center, Heading, Stack } from '@chakra-ui/react'
+import { Center, Heading, Stack } from '@chakra-ui/react'
 import React, { ReactElement } from 'react'
 import { ContactModel } from '../apis/contacts'
-import CreateContactModal from './CreateContactModal'
+import CreateContactButton from './CreateContactButton'
 
 interface Props {
   modalSetter: React.Dispatch<React.SetStateAction<ReactElement | null>>
@@ -16,21 +16,12 @@ export default function EmptyContactList(props: Props) {
         <Heading size='md'>You have no contacts.</Heading>
       </Center>
       <Center>
-        <Button
-          onClick={() => {
-            props.modalSetter(
-              <CreateContactModal
-                token={props.token}
-                onSuccess={(contact: ContactModel) =>
-                  props.contactSetter((prev) => [...prev, contact])
-                }
-                onClose={() => props.modalSetter(null)}
-              />
-            )
-          }}
-        >
-          Create one here
-        </Button>
+        <CreateContactButton
+          btnText='Create one here'
+          modalSetter={props.modalSetter}
+          contactSetter={props.contactSetter}
+          token={props.token}
+        />
       </Center>
     </Stack>
   )

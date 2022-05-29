@@ -2,7 +2,10 @@ import {
   FormControl,
   FormLabel,
   Input,
-  FormErrorMessage
+  FormErrorMessage,
+  Spinner,
+  Text,
+  Button
 } from '@chakra-ui/react'
 import React, { SyntheticEvent, useState } from 'react'
 import { ContactModel, createContact } from '../apis/contacts'
@@ -10,6 +13,7 @@ import { isError } from '../apis/errors.type'
 
 interface Props {
   onSuccess: (contact: ContactModel) => void
+  onClose: () => void
   token: string
 }
 
@@ -78,8 +82,13 @@ export default function CreateContactForm(props: Props) {
 
   const { name, email, number } = contactDetails
 
+  if (loading) {
+    return <Spinner />
+  }
+
   return (
     <form onSubmit={handleSubmit}>
+      {error && <Text>{error}</Text>}
       <FormControl isInvalid={nameError} marginY={5}>
         <FormLabel>Contact Name</FormLabel>
         <Input id='name' value={name} onChange={handleNameChange} />
@@ -109,6 +118,13 @@ export default function CreateContactForm(props: Props) {
           </FormErrorMessage>
         )}
       </FormControl>
+
+      <Button colorScheme='blue' mr={3} onClick={handleSubmit} type='submit'>
+        Create
+      </Button>
+      <Button variant='ghost' onClick={props.onClose}>
+        Cancel
+      </Button>
     </form>
   )
 }

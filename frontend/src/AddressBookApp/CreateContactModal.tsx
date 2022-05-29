@@ -25,24 +25,16 @@ export default function CreateContactModal(props: Props) {
         <ModalHeader>New Contact Details</ModalHeader>
         <ModalCloseButton />
 
-        <ModalBody>
+        <ModalBody mb={8}>
           <CreateContactForm
             onSuccess={(c) => {
               props.onSuccess(c)
               props.onClose()
             }}
             token={props.token}
+            onClose={props.onClose}
           />
         </ModalBody>
-
-        <ModalFooter>
-          <Button colorScheme='blue' mr={3}>
-            Create
-          </Button>
-          <Button variant='ghost' onClick={props.onClose}>
-            Cancel
-          </Button>
-        </ModalFooter>
       </ModalContent>
     </Modal>
   )
