@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { IError } from './errors.type'
 
-const BASE_URL = 'localhost:8000/api'
+const BASE_URL = 'http://localhost:8000'
 
 export type Res<T> = T | IError
 
@@ -42,12 +42,14 @@ export async function httpPost<T>(
   const res = axios
     .post<T>(BASE_URL + url, body, config)
     .then((res) => res.data)
+    .catch((e) => console.log(e))
     .catch((e) => ({
       code: 200,
       status: 'ERR',
       message: '123',
       isError: false
     }))
+  //@ts-ignore
   return res
 }
 
