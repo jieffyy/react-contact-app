@@ -45,6 +45,11 @@ class RegistrationView(generics.GenericAPIView):
 
 
 class LoginView(KnoxLoginView):
+    """
+    API endpoint that allows users to login.
+    Returns a token.
+    Read from Authorization header: Token <token>
+    """
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request, format=None):

@@ -17,3 +17,9 @@ class ContactViewSet(viewsets.ModelViewSet):
         """
         user = self.request.user
         return user.contacts.all()
+
+    def perform_create(self, serializer):
+        """
+        Append request.user to the contacts object before saving.
+        """
+        serializer.save(user=self.request.user)
