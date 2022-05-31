@@ -1,5 +1,5 @@
 import { EmailIcon, PhoneIcon } from '@chakra-ui/icons'
-import { Box, Stack, Heading, Button, Text } from '@chakra-ui/react'
+import { Box, Stack, Heading, Button, Text, Flex } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { ContactModel, deleteContact } from '../apis/contacts'
 import { isError } from '../apis/errors.type'
@@ -41,14 +41,12 @@ export default function ContactBox(props: ContactBoxProps) {
           <EmailIcon mr={2} mb={1} />
           {contact.contact_email}
         </Box>
-        <Box>
-          <Button size='sm' mr={6}>
-            Edit Contact
-          </Button>
+        <Flex columnGap={2}>
+          <Button size='sm'>Edit Contact</Button>
           <Button size='sm' background='red.200' onClick={handleDelete}>
             Delete Contact
           </Button>
-        </Box>
+        </Flex>
       </Stack>
     </Box>
   )

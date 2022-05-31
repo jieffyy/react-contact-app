@@ -1,6 +1,7 @@
-import { Box, Center, Heading, VStack } from '@chakra-ui/react'
+import { Box, Center, Flex, Heading, VStack } from '@chakra-ui/react'
 import React, { ReactElement, useState } from 'react'
 import { ContactModel } from '../apis/contacts'
+import { useCheckMobileScreen } from '../hooks'
 import ContactBox from './ContactBox'
 import CreateContactButton from './CreateContactButton'
 
@@ -16,6 +17,8 @@ function pluralize(count: number) {
 export default function ContactList(props: Props) {
   const [contacts, setContacts] = useState<ContactModel[]>(props.contacts)
   const [modal, setModal] = useState<ReactElement | null>(null)
+
+  const flexWidth = useCheckMobileScreen() ? '100%' : '50%'
 
   return (
     <>
@@ -33,30 +36,44 @@ export default function ContactList(props: Props) {
             token={props.token}
           />
         </Center>
-        {contacts.map((contact) => (
-          <Box key={`contact-${contact.id}`}>
-            <ContactBox
-              token={props.token}
-              contact={contact}
-              onUpdate={(newContact: ContactModel) => {
-                setContacts((prev) => {
-                  return prev.map((contact) => {
-                    if (contact.id !== newContact.id) {
-                      return contact
-                    } else {
-                      return newContact
-                    }
+        <Flex
+          gap='3'
+          flexWrap='wrap'
+          width={flexWidth}
+          alignItems='center'
+          justifyContent='center'
+        >
+          {contacts.map((contact) => (
+            <Box
+              key={`contact-${contact.id}`}
+              border='1px'
+              borderColor='gray.200'
+              borderRadius='xl'
+              padding='5'
+            >
+              <ContactBox
+                token={props.token}
+                contact={contact}
+                onUpdate={(newContact: ContactModel) => {
+                  setContacts((prev) => {
+                    return prev.map((contact) => {
+                      if (contact.id !== newContact.id) {
+                        return contact
+                      } else {
+                        return newContact
+                      }
+                    })
                   })
-                })
-              }}
-              onDelete={(deletedId: number) => {
-                setContacts((prev) => {
-                  return prev.filter((c) => c.id !== deletedId)
-                })
-              }}
-            />
-          </Box>
-        ))}
+                }}
+                onDelete={(deletedId: number) => {
+                  setContacts((prev) => {
+                    return prev.filter((c) => c.id !== deletedId)
+                  })
+                }}
+              />
+            </Box>
+          ))}
+        </Flex>
       </VStack>
       {modal}
     </>
