@@ -1,6 +1,17 @@
-import { Box, Center, Flex, Heading, VStack } from '@chakra-ui/react'
-import React, { ReactElement, useState } from 'react'
+import { LinkIcon } from '@chakra-ui/icons'
+import {
+  Box,
+  Center,
+  Flex,
+  Heading,
+  Link,
+  VStack,
+  Text
+} from '@chakra-ui/react'
+import React, { ReactElement, SyntheticEvent, useState } from 'react'
+import { logout } from '../apis/auth'
 import { ContactModel } from '../apis/contacts'
+import { useAuth } from '../contexts/AuthContext'
 import { useCheckMobileScreen } from '../hooks'
 import ContactBox from './ContactBox'
 import CreateContactButton from './CreateContactButton'
@@ -15,19 +26,37 @@ function pluralize(count: number) {
 }
 
 export default function ContactList(props: Props) {
+  const { setUsername } = useAuth()
+
   const [contacts, setContacts] = useState<ContactModel[]>(props.contacts)
   const [modal, setModal] = useState<ReactElement | null>(null)
 
   const flexWidth = useCheckMobileScreen() ? '100%' : '50%'
 
+  const logoutUser = (e: SyntheticEvent) => {
+    e.preventDefault()
+    logout(props.token).finally(() => {
+      setUsername(null)
+    })
+  }
+
   return (
     <>
       <VStack margin={10} rowGap={5}>
-        <Center>
+        <Flex
+          flexDirection='column'
+          alignItems='center'
+          justifyContent='center'
+        >
           <Heading size='md'>
             You have {contacts.length} {pluralize(contacts.length)}.
           </Heading>
-        </Center>
+          <Box>
+            <Text as={Link} onClick={(e) => logoutUser(e)}>
+              Logout <LinkIcon />
+            </Text>
+          </Box>
+        </Flex>
         <Center>
           <CreateContactButton
             btnText='Create more contacts'

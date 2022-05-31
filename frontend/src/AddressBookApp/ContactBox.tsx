@@ -42,7 +42,6 @@ export default function ContactBox(props: ContactBoxProps) {
           {contact.contact_email}
         </Box>
         <Flex columnGap={2}>
-          <Button size='sm'>Edit Contact</Button>
           <Button size='sm' background='red.200' onClick={handleDelete}>
             Delete Contact
           </Button>
