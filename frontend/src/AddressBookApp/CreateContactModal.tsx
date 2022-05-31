@@ -4,9 +4,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalCloseButton,
-  ModalBody,
-  ModalFooter,
-  Button
+  ModalBody
 } from '@chakra-ui/react'
 import { ContactModel } from '../apis/contacts'
 import CreateContactForm from './CreateContactForm'

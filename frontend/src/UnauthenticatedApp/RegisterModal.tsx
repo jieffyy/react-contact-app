@@ -6,14 +6,12 @@ import {
   Text,
   Button,
   Spinner,
-  Heading,
   Modal,
   ModalContent,
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  Flex,
-  Box
+  Flex
 } from '@chakra-ui/react'
 import { SyntheticEvent, useState } from 'react'
 import { register } from '../apis/auth'

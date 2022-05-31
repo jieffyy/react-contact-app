@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { IError } from './errors.type'
 
-const BASE_URL = 'http://localhost:8000'
+const BASE_URL = process.env.REACT_APP_BACKEND
 
 export type Res<T> = T | IError
 
@@ -20,6 +20,7 @@ export async function httpGet<T>(
   url: string,
   token: string | null
 ): Promise<Res<T>> {
+  console.log(process.env)
   const config = _getHeaders(token)
   const res = axios
     .get<T>(BASE_URL + url, config)
