@@ -13,6 +13,8 @@ import {
 import { login } from '../apis/auth'
 import { isError } from '../apis/errors.type'
 import { useAuth } from '../contexts/AuthContext'
+import { LinkIcon } from '@chakra-ui/icons'
+import RegisterModal from './RegisterModal'
 
 export default function LoginBox() {
   const [username, setUsername] = useState<string>('')
@@ -29,6 +31,8 @@ export default function LoginBox() {
   const [passwordErr, setPasswordErr] = useState<boolean>(false)
 
   const { setUsername: ctxSetUsername, setToken } = useAuth()
+
+  const [modalOpen, setModalOpen] = useState<boolean>(false)
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
@@ -66,7 +70,9 @@ export default function LoginBox() {
     <>
       <Heading marginBottom={2}>Login</Heading>
       <Text size='md' marginBottom={5}>
-        <Link href=''>No account? Sign up here.</Link>
+        <Link onClick={() => setModalOpen(true)}>
+          No account? Sign up here. <LinkIcon />
+        </Link>
       </Text>
       {error ? <Text size='sm'>{error}</Text> : null}
       <form onSubmit={handleSubmit}>
@@ -99,6 +105,13 @@ export default function LoginBox() {
           {isLoading ? <Spinner /> : 'Submit'}
         </Button>
       </form>
+
+      <RegisterModal
+        isModalOpen={modalOpen}
+        onClose={() => {
+          setModalOpen(false)
+        }}
+      />
     </>
   )
 }
